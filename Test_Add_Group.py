@@ -8,29 +8,28 @@ class TestAddGroup(unittest.TestCase):
     def setUp(self):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
-        
+
     
     def test_add_group(self):
         wd = self.wd
-        wd.get("http://localhost/addressbook/group.php")
+        wd.get("http://localhost/addressbook/")
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys("admin")
-        wd.find_element_by_name("pass").click()
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys("secret")
         wd.find_element_by_xpath("//input[@value='Login']").click()
-        wd.find_element_by_id("content").click()
+        wd.find_element_by_link_text("groups").click()
         wd.find_element_by_name("new").click()
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys("dffgfgfg")
+        wd.find_element_by_name("group_name").send_keys("fgtgyhht")
         wd.find_element_by_name("group_header").click()
         wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys("rtrtrtrt")
+        wd.find_element_by_name("group_header").send_keys("eereee")
         wd.find_element_by_name("group_footer").click()
         wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys("ghhjghgh")
+        wd.find_element_by_name("group_footer").send_keys("rttttt")
         wd.find_element_by_name("submit").click()
         wd.find_element_by_link_text("groups").click()
         wd.find_element_by_link_text("Logout").click()
@@ -44,7 +43,7 @@ class TestAddGroup(unittest.TestCase):
         try: self.wd.switch_to_alert()
         except NoAlertPresentException as e: return False
         return True
-    
+
     
     def tearDown(self):
         self.wd.quit()
