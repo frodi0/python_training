@@ -12,18 +12,28 @@ class TestAddContact(unittest.TestCase):
     
     def test_add_contact(self):
         wd = self.wd
-        # open_home_page
+        self.open_home_page(wd)
+        self.login(wd)
+        self.open_add_new_page(wd)
+        self.create_new_contact(wd)
+        self.return_to_home_page(wd)
+        self.logout(wd)
+
+    def open_home_page(self, wd):
         wd.get("http://localhost/addressbook/")
-        # login
+
+    def login(self, wd):
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys("admin")
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys("secret")
         wd.find_element_by_xpath("//input[@value='Login']").click()
-        # open add new(contact)
+
+    def open_add_new_page(self, wd):
         wd.find_element_by_link_text("add new").click()
-        # create new contact
+
+    def create_new_contact(self, wd):
         # fill the firstname
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -83,7 +93,7 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys("homepage")
-        #fill the birthday
+        # fill the birthday
         wd.find_element_by_name("bday").click()
         Select(wd.find_element_by_name("bday")).select_by_visible_text("1")
         wd.find_element_by_xpath("//option[@value='1']").click()
@@ -93,7 +103,7 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys("1900")
-        #fill the anniversary
+        # fill the anniversary
         wd.find_element_by_name("aday").click()
         Select(wd.find_element_by_name("aday")).select_by_visible_text("1")
         wd.find_element_by_xpath("//div[@id='content']/form/select[3]/option[3]").click()
@@ -118,12 +128,14 @@ class TestAddContact(unittest.TestCase):
         # save changes
         wd.find_element_by_name("theform").click()
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
-        # return to home page
+
+    def return_to_home_page(self, wd):
         wd.find_element_by_link_text("home").click()
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[3]/td[7]/a/img").click()
-        # logout
+
+    def logout(self, wd):
         wd.find_element_by_link_text("Logout").click()
-    
+
     def is_element_present(self, how, what):
         try: self.wd.find_element(by=how, value=what)
         except NoSuchElementException as e: return False
