@@ -5,4 +5,3 @@ def test_modify_first_contact(app):
                                 address="123", home="123", mobile="123", work="123", fax="123", email="123",
                                 email2="123", email3="123", homepage="123", bday="11", bmonth="April", byear="2000", aday="26", amonth="July",
                                 ayear="1990", address2="123", phone2="123", notes="123"))
-    app.session.logout()
