@@ -26,8 +26,7 @@ class Application:
 
     def return_to_home_page(self):
         wd = self.wd
-        wd.find_element_by_link_text("home").click()
-        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[3]/td[7]/a/img").click()
+        wd.find_element_by_link_text("home page").click()
 
     def destroy(self):
         self.wd.quit()
