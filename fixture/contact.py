@@ -1,5 +1,7 @@
 from selenium.webdriver.support.select import Select
 from model.contact import Contact
+from selenium.webdriver.common.by import By
+
 import re
 
 class ContactHelper:
@@ -131,7 +133,7 @@ class ContactHelper:
             self.contact_cache = []
             for element in wd.find_elements_by_name("entry"):
                 cells = element.find_elements_by_tag_name("td")
-                id = cells[0].find_element_by_tag_name("input").get_attribute("value")
+                id = element.find_element(By.TAG_NAME, "input").get_attribute("value")
                 lastname = cells[1].text
                 firstname = cells[2].text
                 address = cells[3].text
