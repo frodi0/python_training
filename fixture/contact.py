@@ -118,6 +118,16 @@ class ContactHelper:
         self.app.return_to_home_page()
         self.contact_cache = None
 
+    def modify_contact_by_id(self, id, new_contact_data):
+        wd = self.app.wd
+        self.app.open_home_page()
+        self.select_contact_edit_button_by_id(id)
+        wd.find_element_by_css_selector("a[href='edit.php?id=%s']" % id).click()
+        self.fill_contact_form(new_contact_data)
+        self.submit_changes()
+        self.app.return_to_home_page()
+        self.contact_cache = None
+
     def select_first_contact_edit_button(self):
         wd = self.app.wd
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
@@ -125,6 +135,10 @@ class ContactHelper:
     def select_contact_edit_button_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
+
+    def select_contact_edit_button_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
 
     def submit_changes(self):
         wd = self.app.wd
