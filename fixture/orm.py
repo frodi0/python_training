@@ -4,8 +4,8 @@ from model.group import Group
 from model.contact import Contact
 from pymysql.converters import decoders
 
-class ORMFixture:
 
+class ORMFixture:
     db = Database()
 
     class ORMGroup(db.Entity):
@@ -56,5 +56,7 @@ class ORMFixture:
     @db_session
     def get_contacts_not_in_group(self, group):
         orm_group = list(select(g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
-        return self.convert_contacts_to_model(orm_group.contacts)
+        return self.convert_contacts_to_model(select(c for c in ORMFixture.ORMContact if c.deprecated is None
+                                                     and orm_group not in c.groups))
+
 
