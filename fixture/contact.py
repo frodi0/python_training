@@ -220,10 +220,10 @@ class ContactHelper:
         self.choose_group_for_addition(group.id)
         self.contact_cache = None
 
-    def delete_contact_from_group(self, contact, group_id):
+    def delete_contact_from_group(self, contact, group):
         wd = self.app.wd
         self.app.open_home_page()
-        Select(wd.find_element(By.NAME, "group")).select_by_value(f"{group_id}")
+        self.select_group(group.id)
         self.select_contact_by_id(contact.id)
         wd.find_element(By.NAME, "remove").click()
         self.contact_cache = None
@@ -232,3 +232,7 @@ class ContactHelper:
         wd = self.app.wd
         Select(wd.find_element(By.NAME, "to_group")).select_by_value(f"{group_id}")
         wd.find_element_by_xpath("//input[@name='add']").click()
+
+    def select_group(self, group_id):
+        wd = self.app.wd
+        Select(wd.find_element(By.NAME, "group")).select_by_value(f"{group_id}")

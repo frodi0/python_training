@@ -1,5 +1,6 @@
-from pony.orm import *
 from datetime import datetime
+
+from pony.orm import *
 from model.group import Group
 from model.contact import Contact
 from pymysql.converters import decoders
@@ -22,7 +23,7 @@ class ORMFixture:
         firstname = Optional(str, column='firstname')
         lastname = Optional(str, column='lastname')
         address = Optional(str, column='address')
-        deprecated = Optional(datetime, column='deprecated')
+        deprecated = Optional(str, column='deprecated')
         groups = Set(lambda: ORMFixture.ORMGroup, table="address_in_groups", column="group_id", reverse="contacts", lazy=True)
 
     def __init__(self, host, name, user, password):
