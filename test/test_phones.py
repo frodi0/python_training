@@ -57,7 +57,10 @@ def clear_contact_homepage(contact):
 
 def test_all_contact_info_from_homepage(app, db):
     if len(db.get_contact_list()) == 0:
-        app.contact.create_new_contact(Contact(firstname="Firstname", lastname="Lastname", address="Address"))
+        app.contact.create_new_contact(Contact(firstname="Firstname", lastname="Lastname", address="Address",
+                                               mobilephone="88005553535", homephone="454545", workphone="2023",
+                                               secondaryphone="01", email="email1@bruh.com", email2="email2@gg.ru",
+                                               email3="email3@jfk.com"))
     contacts_on_homepage = app.contact.get_contact_list()
     contacts_in_db = db.get_contact_list()
     assert sorted(contacts_on_homepage, key=Contact.id_or_max) == sorted(map(clear_contact_homepage, contacts_in_db), key=Contact.id_or_max)
