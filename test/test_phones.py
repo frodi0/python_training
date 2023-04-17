@@ -1,5 +1,4 @@
 import re
-from random import randrange
 from model.contact import Contact
 
 #def test_phones_on_homepage(app):
@@ -30,12 +29,15 @@ from model.contact import Contact
 def clear(s):
     return " ".join(s.split()) if s is not None else ""
 
+def clear_phone_value(s):
+    return re.sub("[/.() -]", "", s)
+
 def clear_spaces_address(s):
     return re.sub(" +", " ", re.sub(" \n", "\n", re.sub("\n ", "\n", s))).strip() if s is not None else ""
 
 def merge_phones_like_on_homepage(contact):
     return "\n".join(filter(lambda x: x != "",
-                            map(lambda x: clear(x),
+                            map(lambda x: clear_phone_value(x),
                                 filter(lambda x: x is not None,
                                        [contact.homephone, contact.mobilephone, contact.workphone, contact.secondaryphone]))))
 
@@ -53,9 +55,9 @@ def clear_contact_homepage(contact):
                    all_emails_from_homepage=merge_email_like_on_homepage(contact))
 
 
-def test_all_contact_info_from_homepage(app, json_contacts, db):
+def test_all_contact_info_from_homepage(app, db):
     if len(db.get_contact_list()) == 0:
-        app.contact.create_new_contact(json_contacts)
+        app.contact.create_new_contact(Contact(firstname="Firstname", lastname="Lastname", address="Address"))
     contacts_on_homepage = app.contact.get_contact_list()
     contacts_in_db = db.get_contact_list()
     assert sorted(contacts_on_homepage, key=Contact.id_or_max) == sorted(map(clear_contact_homepage, contacts_in_db), key=Contact.id_or_max)
